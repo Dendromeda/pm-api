@@ -90,18 +90,23 @@ func main() {
 			return
 		}
 
+		tracks := make([]*Track, 0)
+
 		for _, v := range tracksByAlbum[albumID] {
-			album.Tracks = append(album.Tracks, &Track{
+			tracks = append(album.Tracks, &Track{
 				ID:          v.ID,
 				Title:       v.Title,
 				TrackNumber: v.TrackNumber,
 			})
 		}
 
-		// slices.SortFunc(album.Tracks, func(i, j int) bool {
-		// 	return album.Tracks[i].TrackNumber < album.Tracks[j].TrackNumber
-		// })
-		x, err := json.MarshalIndent(album, "", "  ")
+		albumCopy := &Album{
+			ID:     album.ID,
+			Title:  album.Title,
+			Img:    album.Img,
+			Tracks: tracks,
+		}
+		x, err := json.MarshalIndent(albumCopy, "", "  ")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
