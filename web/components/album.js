@@ -12,7 +12,6 @@ class Album extends HTMLElement {
     // Element functionality written in here
 
     connectedCallback() {
-        console.log(this.getAttribute("title"), this.getAttribute("albumId"));
         this.title = this.getAttribute("title");
         this.albumId = this.getAttribute("albumId");
         const div = document.createElement("div");

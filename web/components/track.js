@@ -12,7 +12,6 @@ class Track extends HTMLElement {
     // Element functionality written in here
 
     connectedCallback() {
-        console.log(this.getAttribute("title"), this.getAttribute("trackId"));
         this.title = this.getAttribute("title");
         this.trackId = this.getAttribute("trackId");
         const div = document.createElement("div");
@@ -51,8 +50,6 @@ class Track extends HTMLElement {
          .then(json => {
                 const unformatted = json.lyrics
                 unformatted.split("\n").forEach(line => {
-                    console.log(this.lyrics);
-                    console.log(line);
                     const p = document.createElement("span")
                     p.textContent = line;
                     const br = document.createElement("br");

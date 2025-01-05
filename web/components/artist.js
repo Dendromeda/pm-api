@@ -1,11 +1,12 @@
 
 class Artist extends HTMLElement {
 
-    observedAttributes = ["name", "artistId"];
+    observedAttributes = ["name", "artistId", "imgSrc"];
     albums = []; 
     name = "";
     artistId = 0;
     albumList;
+    img;
 
     constructor() {
       super();
@@ -13,7 +14,6 @@ class Artist extends HTMLElement {
     // Element functionality written in here
 
     connectedCallback() {
-        console.log(this.getAttribute("name"), this.getAttribute("artistId"));
         this.name = this.getAttribute("name");
         this.artistId = this.getAttribute("artistId");
         const div = document.createElement("div");
@@ -21,6 +21,12 @@ class Artist extends HTMLElement {
         const h = document.createElement("h3");
         h.textContent = this.name;
         div.appendChild(h);
+        this.img = document.createElement("img");
+        this.img.src = this.getAttribute("imgSrc");
+        this.img.style.display = "none";
+        this.img.style.width = "100px";
+        this.img.style.height = "100px";
+        div.appendChild(this.img);
         this.albumList = document.createElement("ul");
         div.appendChild(this.albumList);
         this.albumList.hidden = true;
@@ -32,14 +38,17 @@ class Artist extends HTMLElement {
     }
 
     hide() {
+        this.img.style.display = "none";
         this.albumList.hidden = true;
     }
 
     show() {
+        this.img.style.display = "block";
         this.albumList.hidden = false;
     }
 
     toggle() {
+        this.img.style.display = this.img.style.display === "none" ? "block" : "none";
         this.albumList.hidden = !this.albumList.hidden;
     }
 
