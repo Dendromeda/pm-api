@@ -21,6 +21,7 @@ class Artist extends HTMLElement {
         const h = document.createElement("h3");
         h.textContent = this.name;
         div.appendChild(h);
+
         this.img = document.createElement("img");
         this.img.src = this.getAttribute("imgSrc");
         this.img.style.display = "none";
@@ -61,10 +62,12 @@ class Artist extends HTMLElement {
          .then(json => {
                 this.albums = json.albums;
                 this.albums.forEach(album => {
+                    const li = document.createElement("li");
                     const elem = document.createElement("pm-album");
                     elem.setAttribute("title", album.title);
                     elem.setAttribute("albumId", album.id);
-                    this.albumList.appendChild(elem);
+                    li.appendChild(elem);
+                    this.albumList.appendChild(li);
                 });
          })
     }

@@ -19,7 +19,7 @@ class Album extends HTMLElement {
         const h = document.createElement("h4");
         h.textContent = this.title;
         div.appendChild(h);
-        this.trackList = document.createElement("ul");
+        this.trackList = document.createElement("ol");
         div.appendChild(this.trackList);
         this.trackList.hidden = true;
         const album = this;
@@ -48,12 +48,16 @@ class Album extends HTMLElement {
         fetch(`http://dendromeda.se:4545/api/album/${this.albumId}`)
          .then(res => res.json())
          .then(json => {
+                console.log(json);
                 this.tracks = json.tracks;
+                this.tracks.sort((a, b) => a.track_number - b.track_number);
                 this.tracks.forEach(track => {
+                    const li = document.createElement("li");
                     const elem = document.createElement("pm-track");
                     elem.setAttribute("title", track.title);
                     elem.setAttribute("trackId", track.id);
-                    this.trackList.appendChild(elem);
+                    li.appendChild(elem);
+                    this.trackList.appendChild(li);
                 });
          })
     }
