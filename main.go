@@ -93,7 +93,7 @@ func main() {
 		tracks := make([]*Track, 0)
 
 		for _, v := range tracksByAlbum[albumID] {
-			tracks = append(album.Tracks, &Track{
+			tracks = append(tracks, &Track{
 				ID:          v.ID,
 				Title:       v.Title,
 				TrackNumber: v.TrackNumber,
